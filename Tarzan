@@ -1,0 +1,104 @@
+
+<?php
+/*
+#~~~~~~~{About}~~~~~~~#
+
+ تغير الحقوق تدل على علامة فشلك #^_^#
+
+•By : ~ @ABoWaTan
+•Ch : ~ @Soul_e
+•Tw : ~ @ABoWaTan_SyBot
+
+#~~~~~~~{About}~~~~~~~#
+*/
+$API =  7344842983:AAGeAHl7UJINnBPGt2vY4QXsyO9f0b5y0x8-c ;
+define( API_KEY ,$API);
+function bot($method,$datas=[]){
+    $url = "https://api.telegram.org/bot".API_KEY."/".$method;
+$ch = curl_init();
+curl_setopt($ch,CURLOPT_URL,$url);
+curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+curl_setopt($ch,CURLOPT_POSTFIELDS,$datas);
+$res = curl_exec($ch);
+if(curl_error($ch)){
+var_dump(curl_error($ch));
+}else{
+return json_decode($res);
+}}
+$update = json_decode(file_get_contents( php://input ));
+$message = $update->message;
+$from_id = $message->from->id;
+$chat_id = $message->chat->id;
+$text = $message->text;
+$name = $message->from->first_name;
+$Ch = "Soul_e"; // معرف قناتك بدون @
+$join = file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=@$Ch&user_id=".$from_id);
+#~~~~~@ABoWaTan~~~~~#
+if($message && (strpos($join, "status":"left" ) or strpos($join, "Bad Request: USER_ID_INVALID" ) or strpos($join, "status":"kicked" ))!== false){
+bot( sendmessage ,[
+ chat_id =>$chat_id,
+     text =>"📛┇ عذراً صديقي 😿💔
+
+🔰┇ يجب عليك الإشتراك بقناة البوت لتتمكن من استخدام البوت 🌐💜
+
+📡┇ قناة البوت :-
+@$Ch
+
+🖲┇ بعد الإشتراك أرسل { /start } 🎀💜" ,
+]);return false;}
+#~~~~~@ABoWaTan~~~~~#
+if($text == "/start"){
+bot( sendMessage ,[
+  chat_id =>$chat_id,
+  text =>"• اهلاً بك ؛ [$name](tg://user?id=$chat_id)
+
+- في بوت كتابة اسمك بالدم ، ✋🏼💚  
+- لتصميم اسمك أو الاسم الذي تريده ، ♥️ 
+- قم بإرساله باللغة الإنكليزية وإنتظر قليلاً ، ⏰ 
+﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎
+[- اضغط هنا وتابع جديدنا ، 🌐 ](t.me/$Ch)",
+  parse_mode =>"MarkDown",
+ disable_web_page_preview => true ,
+ reply_markup =>json_encode([
+ inline_keyboard =>[
+[[ text => ~ اضغط هنا وتابع جديدنا ، 📢 ؛ , url =>"t.me/$Ch"]],
+]])]);}
+#~~~~~@ABoWaTan~~~~~#
+$Message = $update->message;
+$Dev = $Message->text;
+$ABoWatan = $Message->chat->id;
+$Name = $Message->from->first_name;
+if ($Dev !=  /start ){
+if(preg_match( /([a-z])|([A-Z])/i ,$Dev)){
+bot( sendMessage ,[
+             chat_id =>$ABoWatan,
+ text =>"~ جاري إنشاء التصميم ... ✔️ ؛
+- قد تستغرق العملية بضع ثواني ...⏰ ؛",
+ reply_to_message_id =>$Message->message_id,
+]);
+bot( sendphoto ,[
+  chat_id =>$ABoWatan,
+  photo =>"http://www.abowatan.ml/Blood/?Text=$Dev",
+ caption =>"• لقد تم إنشاء التصميم بنجاح ، ✅ ؛",
+ reply_to_message_id =>$Message->message_id,
+ ]);
+} else 
+bot( sendMessage ,[
+     chat_id =>$ABoWatan,
+     text =>"- عذراً عزيزي ؛ $Name 
+
+- البوت مبرمج ليصمم باللغة الإنكليزية فقط ، 📛 !",
+ reply_to_message_id =>$Message->message_id,
+  ]);
+  }
+/*
+#~~~~~~~{About}~~~~~~~#
+
+تغير الحقوق تدل على علامة فشلك #^_^#
+
+•By : ~ @ABoWaTan
+•Ch : ~ @Soul_e
+•Tw : ~ @ABoWaTan_SyBot
+
+#~~~~~~~{About}~~~~~~~#
+*/
